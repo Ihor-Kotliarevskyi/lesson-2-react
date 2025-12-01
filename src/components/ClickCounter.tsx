@@ -12,9 +12,11 @@ export default function ClickCounter() {
   };
 
   return (
-    <>
-      <button onClick={handleClick}>Clicked: {clicks}</button>{" "}
-      <button onClick={() => resetValue()}>Reset</button>
-    </>
+    <div style={{ border: "1px solid brown", padding: "8px" }}>
+      <>
+        <button onClick={handleClick}>Clicked: {clicks}</button>{" "}
+        <button onClick={() => resetValue()}>Reset</button>
+      </>
+    </div>
   );
 }

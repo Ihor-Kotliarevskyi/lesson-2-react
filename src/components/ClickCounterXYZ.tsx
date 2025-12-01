@@ -21,7 +21,7 @@ export default function ClickCounterXYZ() {
   };
 
   return (
-    <div>
+    <div style={{ border: "1px solid brown", padding: "8px" }}>
       <p>
         x: {values.x}, y: {values.y}, z: {values.z}
       </p>

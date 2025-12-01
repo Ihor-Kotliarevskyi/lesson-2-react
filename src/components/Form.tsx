@@ -1,19 +1,32 @@
 export default function Form() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const form = event.currentTarget;
 
     const formData = new FormData(form);
     const username = formData.get("username");
     console.log("Username:", username);
+    console.log("target:", form.target.length);
+    console.log("className:", form.children[0]);
+    console.log("FormData:", formData);
 
     form.reset();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="username" />
-      <button type="submit">Submit</button>
-    </form>
+    <div style={{ border: "1px solid brown", padding: "8px" }}>
+      <form className="form" onSubmit={handleSubmit}>
+        <input type="text" className="forminput" name="username" />
+        <br></br>
+        <button
+          style={{ margin: "8px auto" }}
+          type="submit"
+          className="formbtn"
+        >
+          Submit!!!
+        </button>
+      </form>
+    </div>
   );
 }
