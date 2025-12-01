@@ -7,5 +7,14 @@ export default function ClickCounter() {
     setClicks(clicks + 1);
   };
 
-  return <button onClick={handleClick}>Clicked: {clicks}</button>;
+  const resetValue = () => {
+    setClicks(0);
+  };
+
+  return (
+    <>
+      <button onClick={handleClick}>Clicked: {clicks}</button>{" "}
+      <button onClick={() => resetValue()}>Reset</button>
+    </>
+  );
 }
