@@ -11,3 +11,6 @@ export const fetchArticles = async (topic: string): Promise<Article[]> => {
   );
   return response.data.hits;
 };
+
+const myKey = import.meta.env.VITE_API_KEY;
+console.log(myKey);

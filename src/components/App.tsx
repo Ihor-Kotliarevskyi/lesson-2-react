@@ -9,6 +9,7 @@ import type Article from "../types/article";
 import ArticleList from "./ArticleList";
 import { Loader } from "./Loader";
 import { fetchArticles } from "../services/articleService";
+import OrderFormWithID from "./OrderFormWithID";
 
 export default function App() {
   const handleOrder = (data: { name: string; text: string }) => {
@@ -51,6 +52,8 @@ export default function App() {
         {isError && <p>Whoops, something went wrong! Please try again!</p>}
         {articles.length > 0 && <ArticleList items={articles} />}
       </div>
+      <br></br>
+      <OrderFormWithID />
     </>
   );
 }
