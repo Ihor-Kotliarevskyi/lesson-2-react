@@ -1,4 +1,3 @@
-import axios from "axios";
 import ClickCounter from "./ClickCounter";
 import ClickCounterXYZ from "./ClickCounterXYZ";
 import Form from "./Form";
@@ -9,10 +8,7 @@ import { useState } from "react";
 import type Article from "../types/article";
 import ArticleList from "./ArticleList";
 import { Loader } from "./Loader";
-
-interface ArticlesHttpResponse {
-  hits: Article[];
-}
+import { fetchArticles } from "../services/articleService";
 
 export default function App() {
   const handleOrder = (data: { name: string; text: string }) => {
@@ -20,16 +16,21 @@ export default function App() {
   };
 
   const [articles, setArticles] = useState<Article[]>([]);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleSearch = async (topic: string) => {
-    setIsLoading(true);
-    const response = await axios.get<ArticlesHttpResponse>(
-      `https://hn.algolia.com/api/v1/search?query=${topic}`
-    );
-    setIsLoading(false);
-    setArticles(response.data.hits);
+    try {
+      setArticles([]);
+      setIsLoading(true);
+      setIsError(false);
+      const data = await fetchArticles(topic);
+      setArticles(data);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,6 +48,7 @@ export default function App() {
       <div>
         <SearchForm onSubmit={handleSearch} />
         {isLoading && <Loader />}
+        {isError && <p>Whoops, something went wrong! Please try again!</p>}
         {articles.length > 0 && <ArticleList items={articles} />}
       </div>
     </>
