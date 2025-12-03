@@ -49,7 +49,9 @@ export default function App() {
       <div>
         <SearchForm onSubmit={handleSearch} />
         {isLoading && <Loader />}
-        {isError && <p>Whoops, something went wrong! Please try again!</p>}
+        {isError && (
+          <strong>Whoops, something went wrong! Please try again!</strong>
+        )}
         {articles.length > 0 && <ArticleList items={articles} />}
       </div>
       <br></br>

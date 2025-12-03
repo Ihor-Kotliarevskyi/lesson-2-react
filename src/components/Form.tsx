@@ -5,7 +5,7 @@ export default function Form() {
     const form = event.currentTarget;
 
     const formData = new FormData(form);
-    const username = formData.get("username");
+    const username = formData.get("username") as string;
     console.log("Username:", username);
     console.log("target:", form.target.length);
     console.log("className:", form.children[0]);
