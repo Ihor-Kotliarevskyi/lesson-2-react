@@ -10,6 +10,9 @@ import ArticleList from "./ArticleList";
 import { Loader } from "./Loader";
 import { fetchArticles } from "../services/articleService";
 import OrderFormWithID from "./OrderFormWithID";
+import Person from "./PersonWithUseEfect";
+import Timer from "./Timer";
+import Modal from "./Modal";
 
 export default function App() {
   const handleOrder = (data: { name: string; text: string }) => {
@@ -19,6 +22,12 @@ export default function App() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const openModal = () => setIsOpenModal(true);
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
 
   const handleSearch = async (topic: string) => {
     try {
@@ -56,6 +65,20 @@ export default function App() {
       </div>
       <br></br>
       <OrderFormWithID />
+      <br></br>
+      <Person />
+      <br></br>
+      <Timer />
+      <br></br>
+      <div style={{ border: "1px solid brown", padding: "8px" }}>
+        <button onClick={openModal}>Open modal</button>
+      </div>
+      <br></br>
+      {isOpenModal && (
+        <Modal onClose={closeModal}>
+          <OrderFormWithID />
+        </Modal>
+      )}
     </>
   );
 }

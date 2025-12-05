@@ -1,7 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ClickCounter() {
-  const [clicks, setClicks] = useState(0);
+  const [clicks, setClicks] = useState(() => {
+    const savedClicks = window.localStorage.getItem("saved-clicks");
+
+    if (savedClicks !== null) {
+      return JSON.parse(savedClicks);
+    }
+    return 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("saved-clicks", JSON.stringify(clicks));
+  }, [clicks]);
 
   const handleClick = () => {
     setClicks(clicks + 1);
